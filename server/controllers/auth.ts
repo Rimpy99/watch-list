@@ -5,7 +5,6 @@ import { User } from '../db_schemas/userSchema';
 
 export const register = async (req: Request, res: Response) => {
     try{
-        console.log(req.body)
         const { email, name, password } = req.body;
         
         const salt = await bcrypt.genSalt(10);
@@ -27,8 +26,27 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     try{
+        const { email, password } = req.body;
 
-        // res.status(200).json()
+        const user = await User.findOne({ email: email });
+
+        if(!user){
+            res.status(400).json({ msg: "No such user exists." });
+            return;
+        }
+
+        const isPasswordMatching = await bcrypt.compare(password, user.password);
+
+        if(!isPasswordMatching){
+            res.status(401).json({ msg: "Invalid password." });
+            return;
+        }
+
+        const token = jwt.sign({ id: user.id, email: user.email }, process.env.TOKEN_SECRET);
+
+        const userId = user._id;
+
+        res.status(200).json({ userId, token });
     }catch(err){
         if (err instanceof Error) res.status(500).json({ msg: err });
     }
