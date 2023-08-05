@@ -45,7 +45,7 @@ const RegisterForm = () => {
                             className={inputStyles}
                             placeholder="email"
                         />
-                        <p>{touched.email && errors.email && 'REQUIRED'}</p>
+                        <p>{touched.email && errors.email && 'Valid email address is required'}</p>
                         <Field 
                             type="text"
                             name="name"
@@ -53,32 +53,32 @@ const RegisterForm = () => {
                             onBlur={handleBlur}
                             value={values.name}
                             error={Boolean(touched.name) && Boolean(errors.name)}
-                            helperText={touched.name && errors.name} 
                             className={inputStyles}
                             placeholder="name"
                         />
+                        <p>{touched.name && errors.name && "Valid name is required"}</p>
                         <Field 
-                            type="text"
+                            type="password"
                             name="password"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.password}
                             error={Boolean(touched.password) && Boolean(errors.password)}
-                            helperText={touched.password && errors.password} 
                             className={inputStyles}
                             placeholder="password"
                         />
+                        <p>{touched.password && errors.password && "Password is required"}</p>
                         <Field 
-                            type="text"
-                            name="confirmPassoword"
+                            type="password"
+                            name="confirmPassword"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.confirmPassword}
                             error={Boolean(touched.confirmPassword) && Boolean(errors.confirmPassword)}
-                            helperText={touched.confirmPassword && errors.confirmPassword} 
                             className={inputStyles}
                             placeholder="confirm password"
                         />
+                        <p>{touched.confirmPassword && errors.confirmPassword && "Passwords must match"}</p>
                         <button 
                             type="submit"
                             className="bg-violet-900 text-white py-2 px-3 rounded-lg m-4"
