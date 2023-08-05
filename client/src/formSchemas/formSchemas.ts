@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 export const registerSchema = Yup.object({
-    email: Yup.string().required("required"),
+    email: Yup.string().required("required").transform((value, originalValue) => (/\s/.test(originalValue) ? NaN : value)),
     name: Yup.string().required("required"),
     password: Yup.string().required("required"),
     confirmPassword: Yup.string().label('confirm password').required().oneOf([Yup.ref('password'), ''], 'Passwords must match'),
