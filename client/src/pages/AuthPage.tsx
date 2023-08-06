@@ -25,11 +25,11 @@ const AuthPage = () => {
                 md:w-4/5
                 md:max-w-md 
             `}>
-                <h2 className="text-neutral-900 m-2">{ isRegisterFormActive ? "SIGN UP" : "SIGN IN" }</h2>
+                <h2 className="text-gray-500 m-2">{ isRegisterFormActive ? "SIGN UP" : "SIGN IN" }</h2>
                 { isRegisterFormActive ? <RegisterForm /> : <LoginForm /> }
                 <button 
                     onClick={() => setIsRegisterFormActive(currentState => !currentState)}
-                    className="border-b-2 border-black"
+                    className="border-b-2 border-gray-500 text-gray-500"
                 >
                         { isRegisterFormActive ? "Do you already have an account?" : "You don't have an account yet?" }
                 </button>

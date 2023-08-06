@@ -1,6 +1,6 @@
 import { Formik, Field } from 'formik';
 import { registerSchema } from '../formSchemas/formSchemas';
-import { inputStyles, flexAround } from '../styles/styles';
+import { inputStyles, submitButtonStyles, flexAround, inputErrorMessage } from '../styles/styles';
 
 type formValuesType = {
     email: string,
@@ -42,10 +42,10 @@ const RegisterForm = () => {
                             onBlur={handleBlur}
                             value={values.email} 
                             error={Boolean(touched.email) && Boolean(errors.email)}
-                            className={inputStyles}
+                            className={`${inputStyles} ${touched.email && errors.email && 'border-red-500'}`}
                             placeholder="email"
                         />
-                        <p>{touched.email && errors.email && 'Valid email address is required'}</p>
+                        <p className={inputErrorMessage}>{touched.email && errors.email && 'Valid email address is required'}</p>
                         <Field 
                             type="text"
                             name="name"
@@ -53,10 +53,10 @@ const RegisterForm = () => {
                             onBlur={handleBlur}
                             value={values.name}
                             error={Boolean(touched.name) && Boolean(errors.name)}
-                            className={inputStyles}
+                            className={`${inputStyles} ${touched.name && errors.name && 'border-red-500'}`}
                             placeholder="name"
                         />
-                        <p>{touched.name && errors.name && "Valid name is required"}</p>
+                        <p className={inputErrorMessage}>{touched.name && errors.name && "Valid name is required"}</p>
                         <Field 
                             type="password"
                             name="password"
@@ -64,10 +64,10 @@ const RegisterForm = () => {
                             onBlur={handleBlur}
                             value={values.password}
                             error={Boolean(touched.password) && Boolean(errors.password)}
-                            className={inputStyles}
+                            className={`${inputStyles} ${touched.password && errors.password && 'border-red-500'}`}
                             placeholder="password"
                         />
-                        <p>{touched.password && errors.password && "Password is required"}</p>
+                        <p className={inputErrorMessage}>{touched.password && errors.password && "Password is required"}</p>
                         <Field 
                             type="password"
                             name="confirmPassword"
@@ -75,13 +75,13 @@ const RegisterForm = () => {
                             onBlur={handleBlur}
                             value={values.confirmPassword}
                             error={Boolean(touched.confirmPassword) && Boolean(errors.confirmPassword)}
-                            className={inputStyles}
+                            className={`${inputStyles} ${touched.confirmPassword && errors.confirmPassword && 'border-red-500'}`}
                             placeholder="confirm password"
                         />
-                        <p>{touched.confirmPassword && errors.confirmPassword && "Passwords must match"}</p>
+                        <p className={inputErrorMessage}>{touched.confirmPassword && errors.confirmPassword && "Passwords must match"}</p>
                         <button 
                             type="submit"
-                            className="bg-violet-900 text-white py-2 px-3 rounded-lg m-4"
+                            className={submitButtonStyles}
                         >
                             Submit
                         </button>

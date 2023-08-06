@@ -1,6 +1,6 @@
 import { Formik, Field } from 'formik';
 import { loginSchema } from '../formSchemas/formSchemas';
-import { inputStyles, flexAround } from '../styles/styles';
+import { inputStyles, flexAround, submitButtonStyles, inputErrorMessage } from '../styles/styles';
 
 type formValuesType = {
     email: string,
@@ -38,10 +38,10 @@ const LoginForm = () => {
                                 onBlur={handleBlur}
                                 value={values.email} 
                                 error={Boolean(touched.email) && Boolean(errors.email)}
-                                helperText={touched.email && errors.email}
-                                className={inputStyles}
+                                className={`${inputStyles} ${touched.email && errors.email && 'border-red-500'}`}
                                 placeholder="email"
-                            />
+                        />
+                        <p className={inputErrorMessage}>{touched.email && errors.email && 'Email address is required'}</p>
                         <Field 
                                 type="text"
                                 name="password"
@@ -49,13 +49,13 @@ const LoginForm = () => {
                                 onBlur={handleBlur}
                                 value={values.password}
                                 error={Boolean(touched.password) && Boolean(errors.password)}
-                                helperText={touched.password && errors.password}
-                                className={inputStyles} 
+                                className={`${inputStyles} ${touched.password && errors.password && 'border-red-500'}`}
                                 placeholder="password"
-                            />
+                        />
+                        <p className={inputErrorMessage}>{touched.password && errors.password && 'Password is required'}</p>
                         <button 
                             type="submit"
-                            className="bg-violet-900 text-white py-2 px-3 rounded-lg m-4"
+                            className={submitButtonStyles}
                         >
                             Submit
                         </button>
