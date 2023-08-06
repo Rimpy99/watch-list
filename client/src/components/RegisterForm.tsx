@@ -42,7 +42,7 @@ const RegisterForm = () => {
                             onBlur={handleBlur}
                             value={values.email} 
                             error={Boolean(touched.email) && Boolean(errors.email)}
-                            className={`${inputStyles} ${touched.email && errors.email && 'border-red-500'}`}
+                            className={`${inputStyles} ${(touched.email && errors.email) ? 'border-red-500' : 'border-transparent'}`}
                             placeholder="email"
                         />
                         <p className={inputErrorMessage}>{touched.email && errors.email && 'Valid email address is required'}</p>
@@ -53,7 +53,7 @@ const RegisterForm = () => {
                             onBlur={handleBlur}
                             value={values.name}
                             error={Boolean(touched.name) && Boolean(errors.name)}
-                            className={`${inputStyles} ${touched.name && errors.name && 'border-red-500'}`}
+                            className={`${inputStyles} ${(touched.name && errors.name) ? 'border-red-500' : 'border-transparent'}`}
                             placeholder="name"
                         />
                         <p className={inputErrorMessage}>{touched.name && errors.name && "Valid name is required"}</p>
@@ -64,7 +64,7 @@ const RegisterForm = () => {
                             onBlur={handleBlur}
                             value={values.password}
                             error={Boolean(touched.password) && Boolean(errors.password)}
-                            className={`${inputStyles} ${touched.password && errors.password && 'border-red-500'}`}
+                            className={`${inputStyles} ${(touched.password && errors.password) ? 'border-red-500' : 'border-transparent'}`}
                             placeholder="password"
                         />
                         <p className={inputErrorMessage}>{touched.password && errors.password && "Password is required"}</p>
@@ -75,7 +75,7 @@ const RegisterForm = () => {
                             onBlur={handleBlur}
                             value={values.confirmPassword}
                             error={Boolean(touched.confirmPassword) && Boolean(errors.confirmPassword)}
-                            className={`${inputStyles} ${touched.confirmPassword && errors.confirmPassword && 'border-red-500'}`}
+                            className={`${inputStyles} ${(touched.confirmPassword && errors.confirmPassword) ? 'border-red-500' : 'border-transparent'}`}
                             placeholder="confirm password"
                         />
                         <p className={inputErrorMessage}>{touched.confirmPassword && errors.confirmPassword && "Passwords must match"}</p>

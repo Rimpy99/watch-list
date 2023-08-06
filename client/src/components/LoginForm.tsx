@@ -38,18 +38,18 @@ const LoginForm = () => {
                                 onBlur={handleBlur}
                                 value={values.email} 
                                 error={Boolean(touched.email) && Boolean(errors.email)}
-                                className={`${inputStyles} ${touched.email && errors.email && 'border-red-500'}`}
+                                className={`${inputStyles} ${(touched.email && errors.email) ? 'border-red-500' : 'border-transparent'}`}
                                 placeholder="email"
                         />
                         <p className={inputErrorMessage}>{touched.email && errors.email && 'Email address is required'}</p>
                         <Field 
-                                type="text"
+                                type="password"
                                 name="password"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.password}
                                 error={Boolean(touched.password) && Boolean(errors.password)}
-                                className={`${inputStyles} ${touched.password && errors.password && 'border-red-500'}`}
+                                className={`${inputStyles} ${(touched.password && errors.password) ? 'border-red-500' : 'border-transparent'}`}
                                 placeholder="password"
                         />
                         <p className={inputErrorMessage}>{touched.password && errors.password && 'Password is required'}</p>
