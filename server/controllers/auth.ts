@@ -10,13 +10,19 @@ export const register = async (req: Request, res: Response) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        const user = new User({
+        const createdUser = {
             email,
             name,
             password: hashedPassword
-        });
+        }
 
-        const createdUser = await user.save();
+        // const user = new User({
+        //     email,
+        //     name,
+        //     password: hashedPassword
+        // });
+
+        // const createdUser = await user.save();
 
         res.status(201).json(createdUser);
     }catch(err){

@@ -21,12 +21,17 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { email, name, password } = req.body;
         const salt = yield bcrypt_1.default.genSalt(10);
         const hashedPassword = yield bcrypt_1.default.hash(password, salt);
-        const user = new userSchema_1.User({
+        const createdUser = {
             email,
             name,
             password: hashedPassword
-        });
-        const createdUser = yield user.save();
+        };
+        // const user = new User({
+        //     email,
+        //     name,
+        //     password: hashedPassword
+        // });
+        // const createdUser = await user.save();
         res.status(201).json(createdUser);
     }
     catch (err) {
@@ -49,8 +54,11 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email }, process.env.TOKEN_SECRET);
-        const userId = user._id;
-        res.status(200).json({ userId, token });
+        const userInfo = {
+            id: user._id,
+            name: user.name
+        };
+        res.status(200).json({ token, userInfo });
     }
     catch (err) {
         if (err instanceof Error)
