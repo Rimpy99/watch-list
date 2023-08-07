@@ -56,7 +56,7 @@ const RegisterForm = () => {
                             className={`${inputStyles} ${(touched.name && errors.name) ? 'border-red-500' : 'border-transparent'}`}
                             placeholder="name"
                         />
-                        <p className={inputErrorMessage}>{touched.name && errors.name && "Valid name is required"}</p>
+                        <p className={inputErrorMessage}>{touched.name && errors.name}</p>
                         <Field 
                             type="password"
                             name="password"
@@ -67,7 +67,7 @@ const RegisterForm = () => {
                             className={`${inputStyles} ${(touched.password && errors.password) ? 'border-red-500' : 'border-transparent'}`}
                             placeholder="password"
                         />
-                        <p className={inputErrorMessage}>{touched.password && errors.password && "Password is required"}</p>
+                        <p className={inputErrorMessage}>{touched.password && errors.password}</p>
                         <Field 
                             type="password"
                             name="confirmPassword"
