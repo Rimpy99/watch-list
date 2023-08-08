@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Formik, Field } from 'formik';
 import { loginSchema } from '../formSchemas/formSchemas';
 import { inputStyles, flexAround, submitButtonStyles, inputErrorMessage } from '../styles/styles';
+import { useNavigate } from 'react-router';
 
 type formValuesType = {
     email: string,
@@ -9,6 +10,8 @@ type formValuesType = {
 }
 
 const LoginForm = () => {
+
+    const navigate = useNavigate();
 
     const formInitialValues = {
         email: '',
@@ -29,7 +32,10 @@ const LoginForm = () => {
 
             if (res.ok){
                 const user = await res.json();
-                if(user) console.log(user);
+                if(user) {
+                    console.log(user);
+                    navigate('/home');
+                }
             } else {
                 const error = await res.json();
                 alert(error.msg);

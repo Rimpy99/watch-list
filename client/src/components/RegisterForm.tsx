@@ -37,9 +37,11 @@ const RegisterForm = ({setIsRegisterFormActive}: RegisterFormPropsType) => {
                 }
             )
 
-            const user = await res.json();
-
-            if(user) setIsRegisterFormActive(currentState => !currentState);
+            if(res.ok){
+                const user = await res.json();
+    
+                if(user) setIsRegisterFormActive(currentState => !currentState);
+            }
         }catch(err){
             alert('An error occured, try again later!')
         }
