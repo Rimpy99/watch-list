@@ -34,6 +34,7 @@ const LoginForm = () => {
                 const user = await res.json();
                 if(user) {
                     console.log(user);
+                    
                     navigate('/home');
                 }
             } else {
