@@ -10,19 +10,13 @@ export const register = async (req: Request, res: Response) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        const createdUser = {
+        const user = new User({
             email,
             name,
             password: hashedPassword
-        }
+        });
 
-        // const user = new User({
-        //     email,
-        //     name,
-        //     password: hashedPassword
-        // });
-
-        // const createdUser = await user.save();
+        const createdUser = await user.save();
 
         res.status(201).json(createdUser);
     }catch(err){
@@ -37,7 +31,7 @@ export const login = async (req: Request, res: Response) => {
         const user = await User.findOne({ email: email });
 
         if(!user){
-            res.status(400).json({ msg: "No such user exists." });
+            res.status(400).json({ msg: "Such user does not exist." });
             return;
         }
 

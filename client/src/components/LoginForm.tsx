@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Formik, Field } from 'formik';
 import { loginSchema } from '../formSchemas/formSchemas';
 import { inputStyles, flexAround, submitButtonStyles, inputErrorMessage } from '../styles/styles';
@@ -14,8 +15,29 @@ const LoginForm = () => {
         password: '',
     }
 
-    const handleFormSubmit = (values: formValuesType) => {
-        console.log(values);
+    const handleFormSubmit = async (values: formValuesType) => {
+        try{
+            const res = await fetch('/auth/login', 
+                {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(values),
+                }
+            );
+
+            if (res.ok){
+                const user = await res.json();
+                if(user) console.log(user);
+            } else {
+                const error = await res.json();
+                alert(error.msg);
+            }
+
+        }catch(err){
+            alert('An error occured, try again later!')
+        }
     }
 
     return(

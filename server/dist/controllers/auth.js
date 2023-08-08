@@ -21,17 +21,12 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { email, name, password } = req.body;
         const salt = yield bcrypt_1.default.genSalt(10);
         const hashedPassword = yield bcrypt_1.default.hash(password, salt);
-        const createdUser = {
+        const user = new userSchema_1.User({
             email,
             name,
             password: hashedPassword
-        };
-        // const user = new User({
-        //     email,
-        //     name,
-        //     password: hashedPassword
-        // });
-        // const createdUser = await user.save();
+        });
+        const createdUser = yield user.save();
         res.status(201).json(createdUser);
     }
     catch (err) {
@@ -45,7 +40,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { email, password } = req.body;
         const user = yield userSchema_1.User.findOne({ email: email });
         if (!user) {
-            res.status(400).json({ msg: "No such user exists." });
+            res.status(400).json({ msg: "Such user does not exist." });
             return;
         }
         const isPasswordMatching = yield bcrypt_1.default.compare(password, user.password);

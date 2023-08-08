@@ -26,7 +26,7 @@ const AuthPage = () => {
                 md:max-w-md 
             `}>
                 <h2 className="text-gray-500 m-2">{ isRegisterFormActive ? "SIGN UP" : "SIGN IN" }</h2>
-                { isRegisterFormActive ? <RegisterForm /> : <LoginForm /> }
+                { isRegisterFormActive ? <RegisterForm setIsRegisterFormActive={setIsRegisterFormActive}/> : <LoginForm /> }
                 <button 
                     onClick={() => setIsRegisterFormActive(currentState => !currentState)}
                     className="border-b-2 border-gray-500 text-gray-500"

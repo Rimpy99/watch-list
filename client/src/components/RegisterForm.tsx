@@ -1,15 +1,20 @@
+import { Dispatch, SetStateAction } from 'react';
 import { Formik, Field } from 'formik';
 import { registerSchema } from '../formSchemas/formSchemas';
 import { inputStyles, submitButtonStyles, flexAround, inputErrorMessage } from '../styles/styles';
 
-type formValuesType = {
+type FormValuesType = {
     email: string,
     name: string,
     password: string,
     confirmPassword: string,
 }
 
-const RegisterForm = () => {
+type RegisterFormPropsType = {
+    setIsRegisterFormActive: Dispatch<SetStateAction<boolean>>
+}
+
+const RegisterForm = ({setIsRegisterFormActive}: RegisterFormPropsType) => {
 
     const formInitialValues = {
         email: '',
@@ -18,7 +23,7 @@ const RegisterForm = () => {
         confirmPassword: '',
     }
 
-    const handleFormSubmit = async (values: formValuesType) => {
+    const handleFormSubmit = async (values: FormValuesType) => {
         const { confirmPassword, ...data } = values;
         
         try{
@@ -33,8 +38,10 @@ const RegisterForm = () => {
             )
 
             const user = await res.json();
+
+            if(user) setIsRegisterFormActive(currentState => !currentState);
         }catch(err){
-            console.log(err);
+            alert('An error occured, try again later!')
         }
     }
 
