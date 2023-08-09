@@ -14,6 +14,7 @@
 
 html, body{
     background: linear-gradient(#030024, #2d0555);
+    background-color: #2d0555;
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;

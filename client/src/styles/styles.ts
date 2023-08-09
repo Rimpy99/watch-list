@@ -8,4 +8,8 @@ export const flexCenter = "flex justify-center items-center";
 
 export const flexAround = "flex justify-around items-center";
 
+export const flexBetween = "flex justify-between items-center";
+
 export const flexStart = "flex justify-start items-center";
+
+// export const navbarStyles = ""

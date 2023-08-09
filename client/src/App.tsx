@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAppSelector } from './redux/reduxHooks';
 import AuthPage from './pages/AuthPage';
 import HomePage from './pages/HomePage';
+import Navbar from './components/Navbar';
 
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        {isTokenCorrect && <Navbar/>}
         <Routes>
           <Route path='/' element={<AuthPage/>}/>
           <Route path='/home' element={isTokenCorrect ? <HomePage/> : <Navigate to='/'/>}/>

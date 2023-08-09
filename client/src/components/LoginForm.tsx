@@ -36,8 +36,6 @@ const LoginForm = () => {
             if (res.ok){
                 const user = await res.json();
                 if(user) {
-                    console.log(user);
-
                     const userData = {
                         userId: user.userInfo.id,
                         userName: user.userInfo.name,
