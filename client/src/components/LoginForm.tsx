@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
 import { Formik, Field } from 'formik';
 import { loginSchema } from '../formSchemas/formSchemas';
 import { inputStyles, flexAround, submitButtonStyles, inputErrorMessage } from '../styles/styles';
 import { useNavigate } from 'react-router';
+import { useAppDispatch } from '../redux/reduxHooks';
+import { setUser } from '../redux/slices/userSlice';
 
 type formValuesType = {
     email: string,
@@ -10,6 +11,8 @@ type formValuesType = {
 }
 
 const LoginForm = () => {
+
+    const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
 
@@ -34,6 +37,14 @@ const LoginForm = () => {
                 const user = await res.json();
                 if(user) {
                     console.log(user);
+
+                    const userData = {
+                        userId: user.userInfo.id,
+                        userName: user.userInfo.name,
+                        token: user.token,
+                    }
+
+                    dispatch(setUser(userData))
                     
                     navigate('/home');
                 }
