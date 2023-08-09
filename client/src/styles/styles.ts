@@ -12,4 +12,4 @@ export const flexBetween = "flex justify-between items-center";
 
 export const flexStart = "flex justify-start items-center";
 
-export const responsiveNavbarLinks = "border-2 border-white py-1 px-2"
+export const responsiveNavbarLinks = "border-2 border-white py-1 px-2 uppercase"
