@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../redux/reduxHooks";
 import { flexBetween, responsiveNavbarLinks } from "../styles/styles";
 
-const Navbar = () => {
+type NavbarPropsType = {
+    setIsSingOutModalActive: Dispatch<SetStateAction<boolean>>
+}
+
+const Navbar = ({setIsSingOutModalActive}: NavbarPropsType) => {
 
     const [ windowSize, setWindowSize ] = useState(getWindowSize());
 
@@ -20,7 +23,18 @@ const Navbar = () => {
       }, []);
 
     return(
-        <div className={`${flexBetween} w-full ${windowSize >= 768 ? 'px-10 py-5' : 'px-3 py-4 text-sm'} backdrop-blur bg-black/30 text-white sticky top-0`}>
+        <div 
+            className={`
+                ${flexBetween} 
+                w-full 
+                ${windowSize >= 768 ? 'px-10 py-5' : 'px-3 py-4 text-sm'} 
+                backdrop-blur 
+                bg-black/30 
+                text-white 
+                sticky 
+                top-0
+            `}
+        >
             {
                 windowSize >= 768 
                 ? 
@@ -34,8 +48,13 @@ const Navbar = () => {
                         <Link to='/watchlist' className={`hover:text-gray-300 ${responsiveNavbarLinks}`}>WATCHLIST</Link>
                     </>
             }
-            <button className={`hover:text-gray-300 ${windowSize < 768 && responsiveNavbarLinks}`}>Sign out</button>
-            {/* <SignOutConfirmation /> */}
+            <button 
+                className={`hover:text-gray-300 ${windowSize < 768 && responsiveNavbarLinks}`} 
+                // onClick={() => setIsSignOutConfirmationActive(currentState => !currentState)}
+                onClick={() => setIsSingOutModalActive(true)}
+            >
+                Sign out
+            </button>
         </div>
     )
 };
