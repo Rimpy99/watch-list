@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import BarLoader from "react-spinners/BarLoader";
 import { flexCenter } from "../styles/styles";
+import MovieCard from "./MovieCard";
 
 type MoviesListPropsType = {
     currentPage: number,
@@ -83,7 +84,7 @@ const MoviesList = ({currentPage}: MoviesListPropsType) => {
             {
                 movies.map((movie) => {
                     return(
-                        <h1>{movie.title}</h1>
+                        <MovieCard movie={movie}/>
                     )
                 })
             }
