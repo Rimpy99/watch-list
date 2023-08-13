@@ -10,14 +10,12 @@ type MoviesListPropsType = {
 type MovieType = {
     id: number,
     title: string,
-    overview: string,
     posterPath: string,
 }
 
 type ResponseMovieType = {
     id: number,
     title: string,
-    overview: string,
     poster_path: string,
 }
 
@@ -28,7 +26,6 @@ const MoviesList = ({currentPage}: MoviesListPropsType) => {
 
     //COPIED FROM TMDB DOCUMENTATION
     const fetchMovies = () => {
-
         const options = {
             method: 'GET',
             headers: {
@@ -44,8 +41,7 @@ const MoviesList = ({currentPage}: MoviesListPropsType) => {
                 const movieData = {
                     title: movie.title,
                     id: movie.id,
-                    posterPath: movie.poster_path,
-                    overview: movie.overview,    
+                    posterPath: movie.poster_path,  
                 }
                 setMovies(currentArray => [...currentArray, movieData]);
                 setIsError(false)

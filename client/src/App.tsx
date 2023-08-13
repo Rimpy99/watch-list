@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import WatchListPage from './pages/WatchListPage';
 import Navbar from './components/Navbar';
 import SignOutConfirmation from './components/SingOutConfirmation';
+import MovieDetails from './pages/MovieDetails';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
           <Route path='/' element={<AuthPage/>}/>
           <Route path='/home' element={isTokenCorrect ? <HomePage/> : <Navigate to='/'/>}/>
           <Route path='/watchlist' element={isTokenCorrect ? <WatchListPage/> : <Navigate to='/'/>}/>
+          <Route path='/movie/:id' element={isTokenCorrect ? <MovieDetails/> : <Navigate to='/'/>}/>
         </Routes>
         {
           isSingOutModalActive && <SignOutConfirmation setIsSingOutModalActive={setIsSingOutModalActive}/>
