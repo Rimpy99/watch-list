@@ -18,7 +18,7 @@ const MovieCard = ({movie}: MovieCardPropsType) => {
             <img 
                 src={`https://image.tmdb.org/t/p/original/${posterPath}`} 
                 alt={`${title} - poster`}
-                className={`${moviePoster}`} 
+                className={`${moviePoster} hover:cursor-pointer`} 
             />
         </>
     )

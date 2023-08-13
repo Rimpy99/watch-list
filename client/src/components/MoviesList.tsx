@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import BarLoader from "react-spinners/BarLoader";
-import { flexCenter } from "../styles/styles";
+import { flexAround, flexCenter } from "../styles/styles";
 import MovieCard from "./MovieCard";
 
 type MoviesListPropsType = {
@@ -80,7 +80,7 @@ const MoviesList = ({currentPage}: MoviesListPropsType) => {
     }
 
     return(
-        <>
+        <div className={` grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3`}>
             {
                 movies.map((movie) => {
                     return(
@@ -88,7 +88,7 @@ const MoviesList = ({currentPage}: MoviesListPropsType) => {
                     )
                 })
             }
-        </>
+        </div>
     )
 }
 

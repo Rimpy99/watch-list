@@ -8,8 +8,10 @@ const HomePage = () => {
 
     return(
         <div>
-            <MoviesList currentPage={currentPage}/>
-            <div className={`w-full ${flexCenter}`}>
+            <div className={`w-full ${flexCenter} pt-10 px-2`}>
+                <MoviesList currentPage={currentPage}/>
+            </div>
+            <div className={`w-full ${flexCenter} mt-2`}>
                 <div>
                     <button 
                         disabled={currentPage === 1 && true} 

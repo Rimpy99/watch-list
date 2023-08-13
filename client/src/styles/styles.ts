@@ -16,6 +16,6 @@ export const responsiveNavbarLinks = "border-2 border-white py-1 px-2 uppercase"
 
 export const confirmationButtons = "w-14 h-10 rounded bg-violet-500 text-white";
 
-export const moviesListButtons = "mx-2 select-none";
+export const moviesListButtons = "mx-2 select-none"
 
-export const moviePoster = "w-44"
+export const moviePoster = "w-44 bg-black border-4 border-transparent hover:border-white hover:opacity-80 transition duration-100 ease-in"
