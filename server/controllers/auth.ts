@@ -13,7 +13,8 @@ export const register = async (req: Request, res: Response) => {
         const user = new User({
             email,
             name,
-            password: hashedPassword
+            password: hashedPassword,
+            watchlist: [],
         });
 
         const createdUser = await user.save();

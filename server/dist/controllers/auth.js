@@ -24,7 +24,8 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const user = new userSchema_1.User({
             email,
             name,
-            password: hashedPassword
+            password: hashedPassword,
+            watchlist: [],
         });
         const createdUser = yield user.save();
         res.status(201).json(createdUser);

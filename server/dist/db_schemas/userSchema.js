@@ -14,6 +14,7 @@ const userSchema = new mongoose_1.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    watchlist: [String]
 });
 exports.User = (0, mongoose_1.model)("watchlist-user", userSchema);
