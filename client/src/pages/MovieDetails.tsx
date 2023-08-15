@@ -58,11 +58,18 @@ const MovieDetails = () => {
         try{    
             const res = await fetch(`/watchlist/check/${userId}/${movieId}`, {
                 method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
             });
 
-            const resData = await res.json();
-            
-            setIsMovieInWatchlist(resData.isMovieInWatchlist);
+            if(res.ok){
+                const resData = await res.json();
+                
+                setIsMovieInWatchlist(resData.isMovieInWatchlist);
+            }else{
+                setIsError(true)
+            }
         }catch(err){
             console.log(err);
             setIsError(true);
@@ -74,12 +81,18 @@ const MovieDetails = () => {
         try{
             const res = await fetch(`/watchlist/add/${userId}/${movieDetails?.id}`, {
                 method: 'POST',
-                // headers: { Authorization: `Bearer ${userToken}` },
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
             });
 
-            const userData = await res.json();
-
-            console.log(userData)
+            if(res.ok){
+                const userData = await res.json();
+                setIsMovieInWatchlist(true)
+                console.log(userData)
+            }else{
+                setIsError(true)
+            }
         }catch(err){
             alert('An error occured while trying to add movie to watchlist!')
         }
@@ -89,12 +102,18 @@ const MovieDetails = () => {
         try{
             const res = await fetch(`/watchlist/remove/${userId}/${movieDetails?.id}`, {
                 method: 'DELETE',
-                // headers: { Authorization: `Bearer ${userToken}` },
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
             });
 
-            const userData = await res.json();
-
-            console.log(userData)
+            if(res.ok){
+                const userData = await res.json();
+                setIsMovieInWatchlist(false)
+                console.log(userData)
+            }else{
+                setIsError(true)
+            }
         }catch(err){
             alert('An error occured while trying to add movie to watchlist!')
         }
@@ -120,10 +139,8 @@ const MovieDetails = () => {
     const changeStatusInWatchList = () => {
         if(isMovieInWatchlist) {
             removeMovieFromWatchlist()
-            setIsMovieInWatchlist(false)
         }else{
             addMovieToWatchlist()
-            setIsMovieInWatchlist(true)
         }
     }
 

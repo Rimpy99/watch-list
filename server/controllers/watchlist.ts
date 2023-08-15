@@ -26,7 +26,17 @@ export const removeMovieFromWatchlist = async (req: Request, res: Response) => {
 };
 
 export const getMoviesFromWatchlist = async (req: Request, res: Response) => {
+    try{
+        const { userId, movieId } = req.params;
 
+        const user = await User.findById(userId);
+
+        const watchlist = user?.watchlist;
+
+        res.status(200).json({watchlist})
+    }catch(err){
+        if(err instanceof Error) res.status(500).json({ msg: err });
+    }
 };
 
 export const checkIfMovieInWatchList = async (req: Request, res: Response) => {
