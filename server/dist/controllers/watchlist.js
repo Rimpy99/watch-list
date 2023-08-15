@@ -14,7 +14,9 @@ const userSchema_1 = require("../db_schemas/userSchema");
 const addMovieToWatchlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId, movieId } = req.params;
+        console.log(`${userId}, ${movieId}`);
         const updatedUser = yield userSchema_1.User.updateOne({ _id: userId }, { $push: { watchlist: movieId } });
+        console.log(updatedUser);
         res.status(201).json({ updatedUser });
     }
     catch (err) {

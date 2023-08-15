@@ -4,8 +4,10 @@ import { User } from '../db_schemas/userSchema';
 export const addMovieToWatchlist = async (req: Request, res: Response) => {
     try{
         const { userId, movieId } = req.params;
-
+        console.log(`${userId}, ${movieId}`)
+        
         const updatedUser = await User.updateOne({ _id: userId }, { $push: { watchlist: movieId } });
+        console.log(updatedUser)
 
         res.status(201).json({updatedUser});
     }catch(err){

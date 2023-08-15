@@ -7,8 +7,8 @@ import {
 
 const router = express.Router();
 
-router.post('/add/:movieId', addMovieToWatchlist);
-router.delete('/remove/:movieId', removeMovieFromWatchlist);
-router.get('/get/:movieId', getMoviesFromWatchlist);
+router.post('/add/:userId/:movieId', addMovieToWatchlist);
+router.delete('/remove/:userId/:movieId', removeMovieFromWatchlist);
+router.get('/get/:userId/:movieId', getMoviesFromWatchlist);
 
 export default router;

@@ -30,7 +30,7 @@ function App() {
           <Route path='/' element={<AuthPage/>}/>
           <Route path='/home' element={isTokenCorrect ? <HomePage/> : <Navigate to='/'/>}/>
           <Route path='/watchlist' element={isTokenCorrect ? <WatchListPage/> : <Navigate to='/'/>}/>
-          <Route path='/movie/:id' element={isTokenCorrect ? <MovieDetails/> : <Navigate to='/'/>}/>
+          <Route path='/movie/:movieId' element={isTokenCorrect ? <MovieDetails/> : <Navigate to='/'/>}/>
         </Routes>
         {
           isSingOutModalActive && <SignOutConfirmation setIsSingOutModalActive={setIsSingOutModalActive}/>

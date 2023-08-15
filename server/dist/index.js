@@ -16,7 +16,7 @@ app.use((0, helmet_1.default)());
 const PORT = process.env.PORT;
 const DB_LINK = process.env.DB_LINK;
 app.use('/auth', authRoutes_1.default);
-app.use('/watchlist/:userId', watchlistRoutes_1.default);
+app.use('/watchlist', watchlistRoutes_1.default);
 mongoose_1.default.connect(DB_LINK).then(() => {
     app.listen(PORT, () => {
         console.log(`server is listening on port ${PORT}`);

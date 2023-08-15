@@ -14,7 +14,7 @@ const PORT = process.env.PORT;
 const DB_LINK = process.env.DB_LINK;
 
 app.use('/auth', authRoutes);
-app.use('/watchlist/:userId', watchlistRoutes);
+app.use('/watchlist', watchlistRoutes);
 
 mongoose.connect(DB_LINK).then(() => {
     app.listen(PORT, () => {

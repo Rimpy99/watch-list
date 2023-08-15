@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { flexCenter } from '../styles/styles';
+import { useAppSelector } from '../redux/reduxHooks';
 
 type MovieDetailsType = {
     id: string,
@@ -11,13 +12,17 @@ type MovieDetailsType = {
 
 const MovieDetails = () => {
 
-    const { id } = useParams();
+    const { movieId } = useParams();
+
+    const userId = useAppSelector((state) => state.user.userId);
+    const userToken = useAppSelector((state) => state.user.token);
 
     const [ movieDetails, setMovieDetails ] = useState<MovieDetailsType>();
 
     const [ windowSize, setWindowSize ] = useState(getWindowSize());
 
     //COPIED FROM TMDB DOCUMENTATION
+    //GET MOVIE'S DETAILS
     const fetchMovieData = () => {
         const options = {
             method: 'GET',
@@ -27,9 +32,10 @@ const MovieDetails = () => {
             }
         };
           
-        fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
+        fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=en-US`, options)
             .then(response => response.json())
             .then(response => {
+                console.log(response)
                 const resMovieDetails = {
                     id: response.id,
                     title: response.title,
@@ -40,6 +46,22 @@ const MovieDetails = () => {
                 setMovieDetails(resMovieDetails);
             })
             .catch(err => console.error(err));
+    }
+
+    //ADDING MOVIE TO WATCHLIST
+    const addMovieToWatchlist = async () => {
+        try{
+            const res = await fetch(`/watchlist/add/${userId}/${movieDetails?.id}`, {
+                method: 'POST',
+                // headers: { Authorization: `Bearer ${userToken}` },
+            });
+
+            const userData = await res.json();
+            
+            console.log(userData)
+        }catch(err){
+            alert('An error occured while trying to add movie to watchlist!')
+        }
     }
 
     useEffect(() => {
@@ -56,7 +78,7 @@ const MovieDetails = () => {
         return () => {
           window.removeEventListener('resize', handleWindowResize);
         };
-      }, []);
+    }, []);
 
     if(!movieDetails) return <h1>Couldn't get any data!</h1>
 
@@ -70,7 +92,12 @@ const MovieDetails = () => {
                 />
                 <div className='px-5'>
                     <h1 className='pt-5 text-4xl font-bold'>{movieDetails.title}</h1>
-                    <button className='my-5 py-3 px-4 rounded bg-violet-500 hover:bg-violet-700'>ADD TO WATCHLIST</button>
+                    <button 
+                        className='my-5 py-3 px-4 rounded bg-violet-500 hover:bg-violet-700'
+                        onClick={() => addMovieToWatchlist()}
+                    >
+                        ADD TO WATCHLIST
+                    </button>
                     <p className='text-base sm:text-xl text-justify sm:text-start'>{movieDetails.overview}</p>
                 </div>
             </div>
