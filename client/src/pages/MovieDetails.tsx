@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { flexCenter } from '../styles/styles';
 import { useAppSelector } from '../redux/reduxHooks';
 import BarLoader from "react-spinners/BarLoader";
+import { AiFillHeart } from "react-icons/ai";
 
 type MovieDetailsType = {
     id: string,
@@ -77,7 +78,22 @@ const MovieDetails = () => {
             });
 
             const userData = await res.json();
-            
+
+            console.log(userData)
+        }catch(err){
+            alert('An error occured while trying to add movie to watchlist!')
+        }
+    }
+
+    const removeMovieFromWatchlist = async () => {
+        try{
+            const res = await fetch(`/watchlist/remove/${userId}/${movieDetails?.id}`, {
+                method: 'DELETE',
+                // headers: { Authorization: `Bearer ${userToken}` },
+            });
+
+            const userData = await res.json();
+
             console.log(userData)
         }catch(err){
             alert('An error occured while trying to add movie to watchlist!')
@@ -100,6 +116,16 @@ const MovieDetails = () => {
           window.removeEventListener('resize', handleWindowResize);
         };
     }, []);
+
+    const changeStatusInWatchList = () => {
+        if(isMovieInWatchlist) {
+            removeMovieFromWatchlist()
+            setIsMovieInWatchlist(false)
+        }else{
+            addMovieToWatchlist()
+            setIsMovieInWatchlist(true)
+        }
+    }
 
     if(!movieDetails){
         if(isError) {
@@ -133,13 +159,12 @@ const MovieDetails = () => {
                 />
                 <div className='px-5'>
                     <h1 className='pt-5 text-4xl font-bold'>{movieDetails.title}</h1>
-                    <button 
-                        className='my-5 py-3 px-4 rounded bg-violet-500 hover:bg-violet-700'
-                        onClick={() => addMovieToWatchlist()}
-                    >
-                        ADD TO WATCHLIST
-                    </button>
-                    {/* <AiOutlineHeart/> */}
+                    <AiFillHeart 
+                        color={isMovieInWatchlist ? '#ff00ee' : 'gray'} 
+                        size={40} 
+                        className='my-4 hover:cursor-pointer'
+                        onClick={() => changeStatusInWatchList()}
+                    />
                     <p className='text-base sm:text-xl text-justify sm:text-start'>{movieDetails.overview}</p>
                 </div>
             </div>

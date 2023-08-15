@@ -24,6 +24,15 @@ const addMovieToWatchlist = (req, res) => __awaiter(void 0, void 0, void 0, func
 });
 exports.addMovieToWatchlist = addMovieToWatchlist;
 const removeMovieFromWatchlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { userId, movieId } = req.params;
+        const updatedUser = yield userSchema_1.User.updateOne({ _id: userId }, { $pull: { watchlist: movieId } });
+        res.status(200).json({ updatedUser });
+    }
+    catch (err) {
+        if (err instanceof Error)
+            res.status(500).json({ msg: err });
+    }
 });
 exports.removeMovieFromWatchlist = removeMovieFromWatchlist;
 const getMoviesFromWatchlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
