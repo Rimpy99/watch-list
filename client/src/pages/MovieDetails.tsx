@@ -19,9 +19,9 @@ const MovieDetails = () => {
     const userToken = useAppSelector((state) => state.user.token);
 
     const [ movieDetails, setMovieDetails ] = useState<MovieDetailsType>();
-    const [ isErrorWhileLoading, setIsErrorWhileLoading ] = useState<boolean>(false);
+    const [ isError, setIsError ] = useState<boolean>(false);
     const [ windowSize, setWindowSize ] = useState(getWindowSize());
-    const [ isMovieFollowed, setIsMovieFollowed ] = useState<boolean>(false);
+    const [ isMovieInWatchlist, setIsMovieInWatchlist ] = useState<boolean>();
 
     //COPIED FROM TMDB DOCUMENTATION
     //GET MOVIE'S DETAILS
@@ -37,7 +37,6 @@ const MovieDetails = () => {
         fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=en-US`, options)
             .then(response => response.json())
             .then(response => {
-                console.log(response)
                 const resMovieDetails = {
                     id: response.id,
                     title: response.title,
@@ -46,13 +45,28 @@ const MovieDetails = () => {
                 }
 
                 setMovieDetails(resMovieDetails);
-                setIsErrorWhileLoading(false)
             })
             .catch(err => {
                 console.error(err);
-                setIsErrorWhileLoading(true);
+                setIsError(true);
             });
     }
+
+    //CHECK IF MOVIE IS IN USER'S WATCHLIST
+    const checkIfMovieIsInWatchlist = async () => {
+        try{    
+            const res = await fetch(`/watchlist/check/${userId}/${movieId}`, {
+                method: 'GET',
+            });
+
+            const resData = await res.json();
+            
+            setIsMovieInWatchlist(resData.isMovieInWatchlist);
+        }catch(err){
+            console.log(err);
+            setIsError(true);
+        }
+    } 
 
     //ADDING MOVIE TO WATCHLIST
     const addMovieToWatchlist = async () => {
@@ -72,6 +86,7 @@ const MovieDetails = () => {
 
     useEffect(() => {
         fetchMovieData();
+        checkIfMovieIsInWatchlist();
     }, []);
 
     useEffect(() => {
@@ -87,10 +102,10 @@ const MovieDetails = () => {
     }, []);
 
     if(!movieDetails){
-        if(isErrorWhileLoading) {
+        if(isError) {
             return (
                 <div className="min-h-[80vh]">
-                    <h3 className="text-center py-10">Couldn't get any data!</h3>
+                    <h3 className="text-center py-10">Something went wrong! Try again later!</h3>
                 </div>
             )
         }
@@ -100,6 +115,12 @@ const MovieDetails = () => {
                 <BarLoader color={'#e0e0e0'}/>
             </div>
         )
+    } else if (isError) {
+        return (
+            <div className="min-h-[80vh]">
+                <h3 className="text-center py-10">Something went wrong! Try again later!</h3>
+            </div>
+        ) 
     }
 
     return(
@@ -107,7 +128,7 @@ const MovieDetails = () => {
             <div className={`${flexCenter} ${windowSize < 900 && 'flex-col'} lg:mx-20`}>
                 <img 
                     src={`https://image.tmdb.org/t/p/original/${movieDetails.posterPath}`} 
-                    alt={`${movieDetails.title} - poster`} 
+                    alt={`${movieDetails?.title} - poster`} 
                     className='w-64 px-5'
                 />
                 <div className='px-5'>
@@ -118,7 +139,7 @@ const MovieDetails = () => {
                     >
                         ADD TO WATCHLIST
                     </button>
-                    <AiOutlineHeart/>
+                    {/* <AiOutlineHeart/> */}
                     <p className='text-base sm:text-xl text-justify sm:text-start'>{movieDetails.overview}</p>
                 </div>
             </div>
