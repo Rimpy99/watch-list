@@ -9,14 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMoviesFromWatchlist = exports.removeMovieFromWatchlist = exports.addMovieToWatchlist = void 0;
+exports.checkIfMovieInWatchList = exports.getMoviesFromWatchlist = exports.removeMovieFromWatchlist = exports.addMovieToWatchlist = void 0;
 const userSchema_1 = require("../db_schemas/userSchema");
 const addMovieToWatchlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId, movieId } = req.params;
-        console.log(`${userId}, ${movieId}`);
         const updatedUser = yield userSchema_1.User.updateOne({ _id: userId }, { $push: { watchlist: movieId } });
-        console.log(updatedUser);
         res.status(201).json({ updatedUser });
     }
     catch (err) {
@@ -31,3 +29,19 @@ exports.removeMovieFromWatchlist = removeMovieFromWatchlist;
 const getMoviesFromWatchlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getMoviesFromWatchlist = getMoviesFromWatchlist;
+const checkIfMovieInWatchList = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { userId, movieId } = req.params;
+        const user = yield userSchema_1.User.findById(userId);
+        let isMovieInWatchlist = false;
+        if (user === null || user === void 0 ? void 0 : user.watchlist.includes(movieId)) {
+            isMovieInWatchlist = true;
+        }
+        res.status(200).json({ isMovieInWatchlist });
+    }
+    catch (err) {
+        if (err instanceof Error)
+            res.status(500).json({ msg: err });
+    }
+});
+exports.checkIfMovieInWatchList = checkIfMovieInWatchList;

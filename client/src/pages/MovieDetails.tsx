@@ -19,10 +19,9 @@ const MovieDetails = () => {
     const userToken = useAppSelector((state) => state.user.token);
 
     const [ movieDetails, setMovieDetails ] = useState<MovieDetailsType>();
-
     const [ isErrorWhileLoading, setIsErrorWhileLoading ] = useState<boolean>(false);
-
     const [ windowSize, setWindowSize ] = useState(getWindowSize());
+    const [ isMovieFollowed, setIsMovieFollowed ] = useState<boolean>(false);
 
     //COPIED FROM TMDB DOCUMENTATION
     //GET MOVIE'S DETAILS
@@ -119,6 +118,7 @@ const MovieDetails = () => {
                     >
                         ADD TO WATCHLIST
                     </button>
+                    <AiOutlineHeart/>
                     <p className='text-base sm:text-xl text-justify sm:text-start'>{movieDetails.overview}</p>
                 </div>
             </div>
