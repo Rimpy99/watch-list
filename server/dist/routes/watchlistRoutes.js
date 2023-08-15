@@ -8,6 +8,6 @@ const watchlist_1 = require("../controllers/watchlist");
 const router = express_1.default.Router();
 router.post('/add/:userId/:movieId', watchlist_1.addMovieToWatchlist);
 router.delete('/remove/:userId/:movieId', watchlist_1.removeMovieFromWatchlist);
-router.get('/get/:userId/:movieId', watchlist_1.getMoviesFromWatchlist);
+router.get('/get/:userId/', watchlist_1.getMoviesFromWatchlist);
 router.get('/check/:userId/:movieId', watchlist_1.checkIfMovieInWatchList);
 exports.default = router;

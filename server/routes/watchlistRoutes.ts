@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post('/add/:userId/:movieId', addMovieToWatchlist);
 router.delete('/remove/:userId/:movieId', removeMovieFromWatchlist);
-router.get('/get/:userId/:movieId', getMoviesFromWatchlist);
+router.get('/get/:userId/', getMoviesFromWatchlist);
 router.get('/check/:userId/:movieId', checkIfMovieInWatchList);
 
 export default router;
