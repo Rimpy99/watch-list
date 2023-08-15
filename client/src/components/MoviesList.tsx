@@ -22,7 +22,7 @@ type ResponseMovieType = {
 const MoviesList = ({currentPage}: MoviesListPropsType) => {
 
     const [ movies, setMovies ] = useState<MovieType[] | []>([]);
-    const [ isError, setIsError ] = useState<boolean>(false);
+    const [ isErrorWhileLoading, setIsErrorWhileLoading ] = useState<boolean>(false);
 
     //COPIED FROM TMDB DOCUMENTATION
     const fetchMovies = () => {
@@ -44,23 +44,23 @@ const MoviesList = ({currentPage}: MoviesListPropsType) => {
                     posterPath: movie.poster_path,  
                 }
                 setMovies(currentArray => [...currentArray, movieData]);
-                setIsError(false)
             })
+            setIsErrorWhileLoading(false)
         })
         .catch(err => {
             console.error(err)
-            setIsError(true)
+            setIsErrorWhileLoading(true)
         });
     }
 
     useEffect(() => {
         setMovies([]);
-        setIsError(false);
+        setIsErrorWhileLoading(false);
         fetchMovies();
     }, [currentPage]);
 
     if(!movies.length){
-        if(isError) {
+        if(isErrorWhileLoading) {
             return (
                 <div className="min-h-[80vh]">
                     <h3 className="text-center py-10">Couldn't get any data!</h3>
@@ -76,7 +76,7 @@ const MoviesList = ({currentPage}: MoviesListPropsType) => {
     }
 
     return(
-        <div className={` grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3`}>
+        <div className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3`}>
             {
                 movies.map((movie) => {
                     return(

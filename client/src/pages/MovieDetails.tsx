@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { flexCenter } from '../styles/styles';
 import { useAppSelector } from '../redux/reduxHooks';
+import BarLoader from "react-spinners/BarLoader";
 
 type MovieDetailsType = {
     id: string,
@@ -18,6 +19,8 @@ const MovieDetails = () => {
     const userToken = useAppSelector((state) => state.user.token);
 
     const [ movieDetails, setMovieDetails ] = useState<MovieDetailsType>();
+
+    const [ isErrorWhileLoading, setIsErrorWhileLoading ] = useState<boolean>(false);
 
     const [ windowSize, setWindowSize ] = useState(getWindowSize());
 
@@ -44,8 +47,12 @@ const MovieDetails = () => {
                 }
 
                 setMovieDetails(resMovieDetails);
+                setIsErrorWhileLoading(false)
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.error(err);
+                setIsErrorWhileLoading(true);
+            });
     }
 
     //ADDING MOVIE TO WATCHLIST
@@ -80,7 +87,21 @@ const MovieDetails = () => {
         };
     }, []);
 
-    if(!movieDetails) return <h1>Couldn't get any data!</h1>
+    if(!movieDetails){
+        if(isErrorWhileLoading) {
+            return (
+                <div className="min-h-[80vh]">
+                    <h3 className="text-center py-10">Couldn't get any data!</h3>
+                </div>
+            )
+        }
+
+        return(
+            <div className={`min-h-[80vh] ${flexCenter}`}>
+                <BarLoader color={'#e0e0e0'}/>
+            </div>
+        )
+    }
 
     return(
         <div className={`${flexCenter} w-full py-20`}>
