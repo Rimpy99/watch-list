@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/reduxHooks";
 import WatchlistCard from "../components/WatchlistCard";
+import { flexCenter } from "../styles/styles";
 
 const WatchListPage = () => {
 
@@ -50,11 +51,16 @@ const WatchListPage = () => {
     }
     
     return(
-        <>
-            {
-                watchlist.map((movieId) => (<WatchlistCard movieId={movieId} key={movieId}/>))
-            }
-        </>
+        <div className={`w-full ${flexCenter} flex-col py-7 px-2`}>
+            <div className="py-7">
+                <h1 className="text-xl font-bold tracking-wide">YOUR WATCHLIST</h1>
+            </div>
+            <div className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3`}>
+                {
+                    watchlist.map((movieId) => (<WatchlistCard movieId={movieId} key={movieId}/>))
+                }
+            </div>
+        </div>
     )
 };
 
