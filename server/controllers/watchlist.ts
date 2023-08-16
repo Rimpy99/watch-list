@@ -27,7 +27,7 @@ export const removeMovieFromWatchlist = async (req: Request, res: Response) => {
 
 export const getMoviesFromWatchlist = async (req: Request, res: Response) => {
     try{
-        const { userId, movieId } = req.params;
+        const { userId } = req.params;
 
         const user = await User.findById(userId);
 
